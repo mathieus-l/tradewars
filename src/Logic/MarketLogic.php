@@ -2,7 +2,7 @@
 
 namespace App\Service\Logic;
 
-class CMarket implements \App\Service\Interfaces\IMarket
+class CMarket implements \App\Service\Interfaces\MarketInterface
 {
     private $_products = [];
     private $turn =0;

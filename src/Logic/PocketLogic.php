@@ -1,10 +1,11 @@
 <?php
 
-namespace App\Service\Logic;
+namespace App\Logic;
 
-use App\Service\Entities\Item;
+use App\Entities\Item;
+use App\Interface;
 
-class CPocket implements \App\Service\Interfaces\IPocket
+class PocketLogic implements PocketInterface 
 {
 
     private $_items = null;
@@ -63,7 +64,7 @@ class CPocket implements \App\Service\Interfaces\IPocket
     private function saveThisPocket()
     {
         $_SESSION['_items'] = serialize($this->_items); 
-        $_SESSION['market'] = serialize($this->market);
+        $_SESSIN['market'] = serialize($this->market);
         $_SESSION['value'] = $this->value;
         $_SESSION['isPocket'] = 'true';
         
