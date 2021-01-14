@@ -89,4 +89,9 @@ class Product
 
         return $this;
     }
+
+    public function loteryPrice() {
+        $this->current_price = $this->average_price + random_int(-$this->variation, $this->variation);
+        return $this;
+    }    
 }

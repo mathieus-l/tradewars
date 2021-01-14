@@ -1,5 +1,5 @@
 <?php
-namespace App\Service\Interface;
+namespace App\Interfaces;
 
 interface PocketInterface {
     

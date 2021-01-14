@@ -2,9 +2,8 @@
 
 namespace App\Service;
 
-use \App\Service\Logic;
-use \App\Service\Entities;
-use \App\Service\Interfaces;
+use App\Logic\MarketLogic;
+use App\Logic\PocketLogic;
 
 class Round
 {
@@ -15,7 +14,7 @@ class Round
 
     public function __construct()
     {
-        $this->market = new Logic\CMarket();
+        $this->market = new MarketLogic();
     }
     
     public function firstRound(array $products, int $start_pocket_value)
@@ -26,7 +25,7 @@ class Round
             $this->market->registerProduct($product);
         }
         $this->market->newTurn();
-        $this->pocket = new Logic\CPocket();
+        $this->pocket = new CPocket();
         $this->pocket->createItemsOfMarket($this->market);
         $this->pocket->setValue($start_pocket_value);
 

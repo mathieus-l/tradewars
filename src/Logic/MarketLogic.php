@@ -1,44 +1,17 @@
 <?php
 
-namespace App\Service\Logic;
+namespace App\Logic;
 
-class CMarket implements \App\Service\Interfaces\MarketInterface
+use App\Interfaces\MarketInterface;
+
+class MarketLogic implements MarketInterface
 {
     private $_products = [];
     private $turn =0;
-    public function __construct() {
-        $this->loadThisMarket();
+    public function __construct($products) {
+        $this->_products = $products;
     } 
 
-    public function loadThisMarket() {
-        
-        if (isset($_SESSION['isProduct']))
-        {
-            $this->_products = unserialize($_SESSION['_products']);
-            $this->turn = $_SESSION['turn'];
-        }
-        
-    }
-    private function saveThisMarket() {
-        $_SESSION['_products'] = serialize($this->_products);
-        $_SESSION['turn'] = $this->turn;
-        $_SESSION['isProduct'] = 'yes';
-    }
-    public function refreshThisMarket() {
-        if (isset($_SESSION))
-        {
-            unset($_SESSION['_products']);
-            unset($_SESSION['turn']);
-            unset($_SESSION['isProduct']);
-        }
-    }
-
-    public function registerProduct(object $product):void 
-    {
-        $this->_products[] = $product;
-        $this->saveThisMarket();
-        
-    }
     public function findProduct(string $name): ?object
     {
         foreach ($this->_products as $product)
@@ -56,7 +29,6 @@ class CMarket implements \App\Service\Interfaces\MarketInterface
             $this->_new_products[] = $product->loteryPrice();
         }
         $this->_products = $this->_new_products;
-        $this->saveThisMarket();
     }
     public function getProducts() {
         return $this->_products;

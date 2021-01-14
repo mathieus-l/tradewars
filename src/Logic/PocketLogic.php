@@ -2,8 +2,9 @@
 
 namespace App\Logic;
 
-use App\Entities\Item;
-use App\Interface;
+use App\Interfaces\PocketInterface;
+
+
 
 class PocketLogic implements PocketInterface 
 {
@@ -21,7 +22,6 @@ class PocketLogic implements PocketInterface
         {
             $this->_items[] = new Item($product->getName());
         }
-        $this->saveThisPocket();
         
     }
     public function setValue($value)
@@ -39,6 +39,7 @@ class PocketLogic implements PocketInterface
                     if ($item->getName() == $name) {
                         $item->setQuantity($item->getQuantity() + $quantity);
                         $item->setBuyPrice($product->getCurrentPrice());
+                        $item->persist();
                     }                
                 }
                 $this->saveThisPocket();
@@ -59,30 +60,6 @@ class PocketLogic implements PocketInterface
                 }
                 $this->saveThisPocket();
             }
-        }
-    }
-    private function saveThisPocket()
-    {
-        $_SESSION['_items'] = serialize($this->_items); 
-        $_SESSIN['market'] = serialize($this->market);
-        $_SESSION['value'] = $this->value;
-        $_SESSION['isPocket'] = 'true';
-        
-    }
-    private function loadThisPocket() {
-        if (isset($_SESSION['isPocket'])) {
-            $this->_items = unserialize($_SESSION['_items']);
-            $this->market = unserialize($_SESSION['market']);
-            $this->value = $_SESSION['value'];
-        }
-    }
-
-    public function refreshThisPocket() {
-        if (isset($_SESSION)) {
-            unset($_SESSION['_items']); 
-            unset($_SESSION['market']);
-            unset($_SESSION['value']);
-            unset($_SESSION['isPocket']);
         }
     }
 
